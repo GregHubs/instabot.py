@@ -54,7 +54,7 @@ class InstaBot:
     url_comment = 'https://www.instagram.com/web/comments/%s/add/'
     url_follow = 'https://www.instagram.com/web/friendships/%s/follow/'
     url_unfollow = 'https://www.instagram.com/web/friendships/%s/unfollow/'
-    url_login = 'https://www.instagram.com/accounts/login/ajax/'
+    url_login = 'https://www.instagram.com/accounts/login/%s/'
     url_logout = 'https://www.instagram.com/accounts/logout/'
     url_media_detail = 'https://www.instagram.com/p/%s/?__a=1'
     url_user_detail = 'https://www.instagram.com/%s/'
