@@ -244,7 +244,7 @@ class InstaBot:
             # prevent error if 'Account of user was deleted or link is invalid
             from json import JSONDecodeError
             try:
-                all_data = json.loads(info.text)
+                all_data = json.loads(re.search(r'>window._sharedData = (.*?);</script>', r.text, re.DOTALL).group(1))['entry_data']['ProfilePage'][0]
             except JSONDecodeError as e:
                 self.write_log('Account of user %s was deleted or link is '
                                'invalid' % (user))
