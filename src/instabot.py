@@ -282,8 +282,8 @@ class InstaBot:
         })
 
 	r = self.s.get(self.url)
-	#csrf_token = json.loads(re.search(r'>window._sharedData = (.*?);</script>', r.text, re.DOTALL).group(1))['config']['csrf_token']
-	csrf_token = re.search('(?<=\"csrf_token\":\")\w+', r.text).group(0)
+	csrf_token = json.loads(re.search(r'>window._sharedData = (.*?);</script>', r.text, re.DOTALL).group(1))['config']['csrf_token']
+	#csrf_token = re.search('(?<=\"csrf_token\":\")\w+', r.text).group(0)
 	self.s.headers.update({'X-CSRFToken': csrf_token})
 	time.sleep(5 * random.random())
 	login = self.s.post(self.url_login, data=self.login_post, allow_redirects=True)
