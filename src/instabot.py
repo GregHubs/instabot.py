@@ -281,18 +281,19 @@ class InstaBot:
             'X-Requested-With': 'XMLHttpRequest'
         })
 
-		r = self.s.get(self.url)
-		csrf_token = json.loads(re.search(r'>window._sharedData = (.*?);</script>', r.text, re.DOTALL).group(1))['config']['csrf_token']
-		self.s.headers.update({'X-CSRFToken': csrf_token})
-		time.sleep(5 * random.random())
-		login = self.s.post(self.url_login, data=self.login_post, allow_redirects=True)
-		self.csrftoken = csrf_token
-		# ig_vw=1536; ig_pr=1.25; ig_vh=772;  ig_or=landscape-primary;
-		self.s.cookies['ig_vw'] = '1536'
-		self.s.cookies['ig_pr'] = '1.25'
-		self.s.cookies['ig_vh'] = '772'
-		self.s.cookies['ig_or'] = 'landscape-primary'
-		time.sleep(5 * random.random())
+	r = self.s.get(self.url)
+	#csrf_token = json.loads(re.search(r'>window._sharedData = (.*?);</script>', r.text, re.DOTALL).group(1))['config']['csrf_token']
+	csrf_token = re.search('(?<=\"csrf_token\":\")\w+', r.text).group(0)
+	self.s.headers.update({'X-CSRFToken': csrf_token})
+	time.sleep(5 * random.random())
+	login = self.s.post(self.url_login, data=self.login_post, allow_redirects=True)
+	self.csrftoken = csrf_token
+	# ig_vw=1536; ig_pr=1.25; ig_vh=772;  ig_or=landscape-primary;
+	self.s.cookies['ig_vw'] = '1536'
+	self.s.cookies['ig_pr'] = '1.25'
+	self.s.cookies['ig_vh'] = '772'
+	self.s.cookies['ig_or'] = 'landscape-primary'
+	time.sleep(5 * random.random())
 
         if login.status_code == 200:
             r = self.s.get('https://www.instagram.com/')
